@@ -29,3 +29,70 @@ export const Header = styled.header`
     }
   }
 `;
+
+export const ListContainer = styled.div`
+  margin-top: 24px;
+
+  header {
+    margin-bottom: 8px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+
+    span {
+      font-weight: bold;
+      margin-right: 8px;
+      color: ${({ theme }) => theme.color.primary.main};
+    }
+  }
+`;
+
+export const Card = styled.div`
+  background: #fff;
+  padding: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04px);
+  border-radius: 4px;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .info {
+    .contact-name {
+      display: flex;
+      align-items: center;
+
+      small {
+        background: ${({ theme }) => theme.color.primary.lighter};
+        color: ${({ theme }) => theme.color.primary.main};
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 4px;
+        border-radius: 4px;
+        margin-left: 8px;
+      }
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      color: ${({ theme }) => theme.color.gray[200]};
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+
+    button {
+      background: transparent;
+      border: none;
+      margin-left: 8px;
+    }
+  }
+`;
