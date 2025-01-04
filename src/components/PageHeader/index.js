@@ -1,7 +1,7 @@
 import { Container } from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function PageHeader({ title }) {
   return (

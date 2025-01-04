@@ -3,21 +3,19 @@ import defaultTheme from '../../assets/styles/theme/default';
 import GlobalStyles from '../../assets/styles/global';
 
 import { Header } from '../Header';
-import { Routes } from '../../Routes';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
+
 import { Container } from './styles';
+import { AppRoutes } from '../../Routes';
 
 function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={defaultTheme}>
-        <GlobalStyles />
-        <Container>
-          <Header />
-          <Routes />
-        </Container>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyles />
+      <Container>
+        <Header />
+        <AppRoutes />
+      </Container>
+    </ThemeProvider>
   );
 }
 

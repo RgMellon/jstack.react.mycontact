@@ -8,6 +8,7 @@ import {
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
+import { Link } from 'react-router-dom';
 
 export function Home() {
   return (
@@ -18,7 +19,7 @@ export function Home() {
 
       <Header>
         <strong>3 Contatos</strong>
-        <a href=""> Novo contato </a>
+        <Link to="/new">Novo contato</Link>
       </Header>
 
       <ListContainer>
@@ -43,9 +44,9 @@ export function Home() {
         </div>
 
         <div className="actions">
-          <a href="">
+          <Link to="edit/120312">
             <img src={edit} alt="edit" />
-          </a>
+          </Link>
 
           <button type="button">
             <img src={trash} alt="trash" />

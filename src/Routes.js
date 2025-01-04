@@ -1,14 +1,16 @@
-import { Switch, Route } from 'react-router-dom/cjs/react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { EditContact } from './pages/EditContact';
 import { NewContact } from './pages/NewContact';
 
-export function Routes() {
+export function AppRoutes() {
   return (
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/new" component={NewContact} />
-      <Route path="/edit/:id" component={EditContact} />
-    </Switch>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<NewContact />} />
+        <Route path="/edit/:id" element={<EditContact />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
