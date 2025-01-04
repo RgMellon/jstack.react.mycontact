@@ -1,20 +1,23 @@
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../../assets/styles/theme/default';
 import GlobalStyles from '../../assets/styles/global';
-import { Container } from './styles';
+
 import { Header } from '../Header';
-import { ContactList } from '../ContactList';
+import { Routes } from '../../Routes';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
+import { Container } from './styles';
 
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyles />
-      <Container>
-        <Header />
-
-        <ContactList />
-      </Container>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyles />
+        <Container>
+          <Header />
+          <Routes />
+        </Container>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

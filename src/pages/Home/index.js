@@ -1,11 +1,21 @@
-import { Card, Container, Header, ListContainer } from './style';
+import {
+  Card,
+  Container,
+  Header,
+  InputSearchContainer,
+  ListContainer,
+} from './styles';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
-export function ContactList() {
+export function Home() {
   return (
     <Container>
+      <InputSearchContainer>
+        <input type="text" placeholder="Pesquisar contato" />
+      </InputSearchContainer>
+
       <Header>
         <strong>3 Contatos</strong>
         <a href=""> Novo contato </a>
