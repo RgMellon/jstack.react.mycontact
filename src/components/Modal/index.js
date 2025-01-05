@@ -1,8 +1,9 @@
 import { Button } from '../Button';
 import { Container, Overlay, Footer } from './style';
+import ReactDOM from 'react-dom';
 
 export function Modal() {
-  return (
+  return ReactDOM.createPortal(
     <Overlay>
       <Container>
         <h1> Titulo </h1>
@@ -15,6 +16,7 @@ export function Modal() {
           <Button danger>Tetse</Button>
         </Footer>
       </Container>
-    </Overlay>
+    </Overlay>,
+    document.getElementById('modal-root')
   );
 }
