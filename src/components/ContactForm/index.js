@@ -7,8 +7,8 @@ import { Form } from './style';
 export function ContactForm({ buttonLabel }) {
   return (
     <Form>
-      <FormGroup>
-        <Input placeholder="Nome" />
+      <FormGroup error="Nome valido">
+        <Input placeholder="Nome" error />
       </FormGroup>
 
       <FormGroup>
