@@ -3,14 +3,29 @@ import {
   Container,
   Header,
   InputSearchContainer,
-  ListContainer,
+  ListHeader,
 } from './styles';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export function Home() {
+  const [contacts, setContacts] = useState([]);
+  const [orderBy, setOrderBy] = useState('asc');
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
+      .then((result) => result.json())
+      .then((data) => setContacts(data))
+      .catch((err) => console.log(err));
+  }, [orderBy]);
+
+  function handleTogleOrder() {
+    setOrderBy((oldState) => (oldState === 'asc' ? 'desc' : 'asc'));
+  }
+
   return (
     <Container>
       <InputSearchContainer>
@@ -18,41 +33,45 @@ export function Home() {
       </InputSearchContainer>
 
       <Header>
-        <strong>3 Contatos</strong>
+        <strong>
+          {contacts.length} {contacts.length === 0 ? `Contato` : `Contatos`}
+        </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      <ListContainer>
-        <header>
-          <button type="button">
-            <span>Nome</span>
-            <img src={arrow} alt="flecha" width={10} />
-          </button>
-        </header>
-      </ListContainer>
+      <ListHeader orderBy={orderBy}>
+        <button onClick={handleTogleOrder}>
+          <span>Nome</span>
+          <img src={arrow} alt="flecha" width={10} />
+        </button>
+      </ListHeader>
 
-      <Card>
-        <div className="info">
-          <div className="contact-name">
-            <strong>Renan</strong>
-            <small>category</small>
+      {contacts.map((contact) => (
+        <Card key={contact.id}>
+          <div className="info">
+            <div className="contact-name">
+              <strong>{contact.name}</strong>
+              {!!contact?.category_name && (
+                <small>{contact.category_name}</small>
+              )}
+            </div>
+
+            <span>{contact.email}</span>
+
+            <span>{contact.phone}</span>
           </div>
 
-          <span>rgmelo94@gmail.com</span>
+          <div className="actions">
+            <Link to={`edit/${contact.id}`}>
+              <img src={edit} alt="edit" />
+            </Link>
 
-          <span>9999999999999</span>
-        </div>
-
-        <div className="actions">
-          <Link to="edit/120312">
-            <img src={edit} alt="edit" />
-          </Link>
-
-          <button type="button">
-            <img src={trash} alt="trash" />
-          </button>
-        </div>
-      </Card>
+            <button type="button">
+              <img src={trash} alt="trash" />
+            </button>
+          </div>
+        </Card>
+      ))}
     </Container>
   );
 }

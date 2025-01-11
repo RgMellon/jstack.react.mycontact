@@ -31,21 +31,32 @@ export const Header = styled.header`
   }
 `;
 
-export const ListContainer = styled.div`
+export const ListHeader = styled.header`
   margin-top: 24px;
 
-  header {
-    margin-bottom: 8px;
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
+  margin-bottom: 8px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
 
-    span {
-      font-weight: bold;
-      margin-right: 8px;
-      color: ${({ theme }) => theme.color.primary.main};
-    }
+  button {
+    background: transparent;
+    outline: none;
+    border: 0;
+  }
+
+  span {
+    font-weight: bold;
+    margin-right: 8px;
+    color: ${({ theme }) => theme.color.primary.main};
+  }
+
+  img {
+    transform: ${({ orderBy }) =>
+      orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0)'};
+
+    transition: transform 0.2s ease-in;
   }
 `;
 
