@@ -14,6 +14,11 @@ import { useEffect, useState } from 'react';
 export function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filtredSearch = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
@@ -26,27 +31,38 @@ export function Home() {
     setOrderBy((oldState) => (oldState === 'asc' ? 'desc' : 'asc'));
   }
 
+  function handleChangeSearch(event) {
+    setSearchTerm(event.target.value);
+  }
+
   return (
     <Container>
       <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar contato" />
+        <input
+          type="text"
+          placeholder="Pesquisar contato"
+          onChange={handleChangeSearch}
+        />
       </InputSearchContainer>
 
       <Header>
         <strong>
-          {contacts.length} {contacts.length === 0 ? `Contato` : `Contatos`}
+          {filtredSearch.length}{' '}
+          {contacts.length === 0 ? `Contato` : `Contatos`}
         </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      <ListHeader orderBy={orderBy}>
-        <button onClick={handleTogleOrder}>
-          <span>Nome</span>
-          <img src={arrow} alt="flecha" width={10} />
-        </button>
-      </ListHeader>
+      {filtredSearch.length > 0 && (
+        <ListHeader orderBy={orderBy}>
+          <button onClick={handleTogleOrder}>
+            <span>Nome</span>
+            <img src={arrow} alt="flecha" width={10} />
+          </button>
+        </ListHeader>
+      )}
 
-      {contacts.map((contact) => (
+      {filtredSearch.map((contact) => (
         <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">
