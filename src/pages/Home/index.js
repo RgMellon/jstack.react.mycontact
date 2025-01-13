@@ -10,21 +10,30 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Load } from '../../components/Load';
 
 export function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoad, setIsLoad] = useState(true);
 
   const filtredSearch = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
+    setIsLoad(true);
+
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then((result) => result.json())
-      .then((data) => setContacts(data))
-      .catch((err) => console.log(err));
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoad(false);
+      });
   }, [orderBy]);
 
   function handleTogleOrder() {
@@ -37,6 +46,7 @@ export function Home() {
 
   return (
     <Container>
+      <Load isLoad={isLoad} />
       <InputSearchContainer>
         <input
           type="text"
