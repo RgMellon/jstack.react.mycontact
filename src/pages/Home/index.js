@@ -11,6 +11,7 @@ import trash from '../../assets/images/icons/trash.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Load } from '../../components/Load';
+import ContactsService from '../../services/ContactsService';
 
 export function Home() {
   const [contacts, setContacts] = useState([]);
@@ -27,12 +28,9 @@ export function Home() {
 
     async function fetchData() {
       try {
-        const response = await fetch(
-          `http://localhost:3001/contacts?orderBy=${orderBy}`
-        );
-        const json = await response.json();
+        const contactList = await ContactsService.loadContacts(orderBy);
+        setContacts(contactList);
 
-        setContacts(json);
         setIsLoad(false);
       } catch (err) {
         console.log(err);
