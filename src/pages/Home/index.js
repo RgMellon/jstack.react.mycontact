@@ -18,22 +18,28 @@ export function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoad, setIsLoad] = useState(true);
 
-  const filtredSearch = contacts.filter((contact) =>
+  const filtredSearch = contacts?.filter((contact) =>
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
     setIsLoad(true);
 
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/contacts?orderBy=${orderBy}`
+        );
         const json = await response.json();
+
         setContacts(json);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
         setIsLoad(false);
-      });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchData();
   }, [orderBy]);
 
   function handleTogleOrder() {
