@@ -1,10 +1,12 @@
-class ContactsService {
-  async loadContacts(orderBy = 'asc') {
-    const response = await fetch(
-      `http://localhost:3001/contacts?orderBy=${orderBy}`
-    );
+import HttpClient from './utils/HttpClient';
 
-    return response.json();
+class ContactsService {
+  constructor() {
+    this.httpClient = new HttpClient('http://localhost:3001');
+  }
+
+  async loadContacts(orderBy = 'asc') {
+    return await this.httpClient.get(`contacts?orderBy=${orderBy}`);
   }
 }
 
