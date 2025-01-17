@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Load } from '../../components/Load';
 import ContactsService from '../../services/ContactsService';
+import ApiError from '../../errors/ApiError';
 
 export function Home() {
   const [contacts, setContacts] = useState([]);
@@ -29,11 +30,18 @@ export function Home() {
     async function fetchData() {
       try {
         const contactList = await ContactsService.loadContacts(orderBy);
+
         setContacts(contactList);
 
         setIsLoad(false);
       } catch (err) {
-        console.log(err);
+        if (err instanceof ApiError) {
+          console.log('ERRO NA API', err);
+        } else {
+          console.log('Desconhecido');
+        }
+      } finally {
+        setIsLoad(false);
       }
     }
 
