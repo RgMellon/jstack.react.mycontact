@@ -5,22 +5,53 @@ class HttpClient {
     this.baseUrl = baseUrl;
   }
 
-  async get(path) {
-    const response = await fetch(`${this.baseUrl}/${path}`);
+  get(path, options) {
+    return this.makeRequest(path, {
+      method: 'GET',
+      headers: options?.headers,
+    });
+  }
 
-    let body = null;
+  post(path, options) {
+    this.makeRequest(path, {
+      method: 'POST',
+      body: options?.body,
+      headers: options?.headers,
+    });
+  }
+
+  async makeRequest(path, options) {
+    const headers = new Headers();
+
+    if (options.body) {
+      headers.append('Content-type', 'application/json');
+    }
+
+    if (options.headers) {
+      Object.keys(options.headers).forEach((key) => {
+        headers.append(key, options.headers[key]);
+      });
+    }
+
+    const response = await fetch(`${this.baseUrl}/${path}`, {
+      method: options.method,
+      body: JSON.stringify(options?.body),
+      headers,
+    });
+
+    let responseBody = null;
     const contentType = response.headers.get('Content-Type');
 
     if (contentType.includes('application/json')) {
-      body = await response.json();
+      responseBody = await response.json();
     }
 
     if (response.ok) {
-      return body;
+      return responseBody;
     }
 
     throw new ApiError(
-      body?.error || `${response.status} - ${response.statusText}`
+      options.body?.error || `${response.status} - ${response.statusText}`
     );
   }
 }

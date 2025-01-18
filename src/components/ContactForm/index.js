@@ -1,20 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../Button';
 import { FormGroup } from '../FormGroup';
 import { Input } from '../Input';
 import { Select } from '../Select';
 import { Form } from './style';
 import { useError } from '../../hooks/useError';
+import CategoriesService from '../../services/CategoriesService';
 
-export function ContactForm({ buttonLabel }) {
+export function ContactForm({ buttonLabel, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [loadCategories, setLoadCategories] = useState(true);
   const { errors, handleEmailError, handleRequiredError } = useError();
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const result = await CategoriesService.loadCategories();
+        setCategories(result);
+      } catch {
+      } finally {
+        setLoadCategories(false);
+      }
+    }
+
+    loadCategories();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    onSubmit({
+      name,
+      email,
+      phone,
+      categoryId,
+    });
   }
 
   function handleChangeName(event) {
@@ -69,11 +93,13 @@ export function ContactForm({ buttonLabel }) {
 
       <FormGroup>
         <Select
-          value={category}
-          onChange={(value) => setCategory(value.target.value)}
+          value={categoryId}
+          onChange={(value) => setCategoryId(value.target.value)}
+          disabled={loadCategories}
         >
-          <option value={'instagram'}>Instagram</option>
-          <option value={'discord'}>Discord</option>
+          {categories.map((category) => (
+            <option value={category.id}>{category.name}</option>
+          ))}
         </Select>
       </FormGroup>
 
