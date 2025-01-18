@@ -14,6 +14,8 @@ export function ContactForm({ buttonLabel, onSubmit }) {
   const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState([]);
   const [loadCategories, setLoadCategories] = useState(true);
+  const [isSubmiting, setIsSubmiting] = useState(false);
+
   const { errors, handleEmailError, handleRequiredError } = useError();
 
   useEffect(() => {
@@ -30,15 +32,19 @@ export function ContactForm({ buttonLabel, onSubmit }) {
     loadCategories();
   }, []);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    onSubmit({
+    setIsSubmiting(true);
+
+    await onSubmit({
       name,
       email,
       phone,
       categoryId,
     });
+
+    setIsSubmiting(false);
   }
 
   function handleChangeName(event) {
@@ -103,8 +109,8 @@ export function ContactForm({ buttonLabel, onSubmit }) {
         </Select>
       </FormGroup>
 
-      <Button style={{ marginTop: 24 }} type="submit">
-        {buttonLabel}
+      <Button disabled={isSubmiting} style={{ marginTop: 24 }} type="submit">
+        {!isSubmiting ? buttonLabel : 'Enviando...'}
       </Button>
     </Form>
   );

@@ -11,7 +11,9 @@ export function NewContact() {
         email: formData.email,
         category_id: formData.categoryId,
       });
-    } catch {}
+    } catch {
+      alert('aconteu um erro, tente mais tarde');
+    }
   }
 
   return (
