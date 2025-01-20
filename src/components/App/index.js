@@ -6,10 +6,12 @@ import { Header } from '../Header';
 
 import { Container } from './styles';
 import { AppRoutes } from '../../Routes';
+import { ToastContainer } from '../Toast/ToastContainer';
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
       <GlobalStyles />
       <Container>
         <Header />
