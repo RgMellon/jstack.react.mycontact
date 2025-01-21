@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ToastMessage } from '../ToastMessage';
 import { Container } from './styles';
+import { toastEvent } from '../../../utils/toast';
 
 export function ToastContainer() {
-  console.log('toast renderizou');
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    function handleAddToast(event) {
-      const { type, text } = event.detail;
-      console.log('irrru');
+    function handleAddToast({ type, text }) {
       setMessages((prevState) => [
         ...prevState,
         {
@@ -20,10 +18,10 @@ export function ToastContainer() {
       ]);
     }
 
-    document.addEventListener('addtoast', handleAddToast);
+    toastEvent.on('addtoast', handleAddToast);
 
     return () => {
-      document.removeEventListener('addtoast', handleAddToast);
+      toastEvent.removeListener('addtoast', handleAddToast);
     };
   }, []);
 
