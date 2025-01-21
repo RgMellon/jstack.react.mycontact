@@ -12,7 +12,14 @@ export function NewContact() {
         category_id: formData.categoryId,
       });
     } catch {
-      alert('aconteu um erro, tente mais tarde');
+      const event = new CustomEvent('addtoast', {
+        detail: {
+          type: 'danger',
+          text: 'Erro ao cadastrar usuário',
+        },
+      });
+
+      document.dispatchEvent(event);
     }
   }
 
