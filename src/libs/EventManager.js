@@ -4,7 +4,6 @@ export class EventManager {
   }
 
   on(event, listener) {
-    console.log(event, listener, 'on');
     if (!this.listeners.has(event)) {
       this.listeners.set(event, []);
     }
@@ -20,6 +19,7 @@ export class EventManager {
     }
 
     const currentEvent = this.listeners.get(event);
+
     currentEvent.forEach((currentListener) => {
       currentListener(payload);
     });

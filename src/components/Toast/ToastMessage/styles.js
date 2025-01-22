@@ -20,6 +20,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
+  cursor: pointer;
 
   ${({ type, theme }) => containerVariant(type, theme)}
 

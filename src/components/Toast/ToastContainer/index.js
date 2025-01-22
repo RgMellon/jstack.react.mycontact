@@ -25,6 +25,12 @@ export function ToastContainer() {
     };
   }, []);
 
+  function onRemove(id) {
+    setMessages((prevState) =>
+      prevState.filter((message) => message.id !== id)
+    );
+  }
+
   return (
     <Container>
       {messages.map((message) => (
@@ -32,6 +38,7 @@ export function ToastContainer() {
           key={message.id}
           text={message.text}
           type={message.type}
+          onRemove={() => onRemove(message.id)}
         />
       ))}
     </Container>
