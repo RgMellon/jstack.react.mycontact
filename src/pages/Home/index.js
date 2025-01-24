@@ -16,7 +16,7 @@ import ApiError from '../../errors/ApiError';
 
 export function Home() {
   const [contacts, setContacts] = useState([]);
-  const [orderBy, setOrderBy] = useState('asc');
+  const [orderby, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoad, setIsLoad] = useState(true);
 
@@ -29,7 +29,7 @@ export function Home() {
 
     async function fetchData() {
       try {
-        const contactList = await ContactsService.loadContacts(orderBy);
+        const contactList = await ContactsService.loadContacts(orderby);
 
         setContacts(contactList);
 
@@ -46,7 +46,7 @@ export function Home() {
     }
 
     fetchData();
-  }, [orderBy]);
+  }, [orderby]);
 
   function handleTogleOrder() {
     setOrderBy((oldState) => (oldState === 'asc' ? 'desc' : 'asc'));
@@ -76,7 +76,7 @@ export function Home() {
       </Header>
 
       {filtredSearch.length > 0 && (
-        <ListHeader orderBy={orderBy}>
+        <ListHeader orderby={orderby}>
           <button onClick={handleTogleOrder}>
             <span>Nome</span>
             <img src={arrow} alt="flecha" width={10} />

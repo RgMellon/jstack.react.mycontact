@@ -5,6 +5,7 @@ import { toast } from '../../utils/toast';
 
 export function NewContact() {
   async function handleSubmit(formData) {
+
     try {
       await ContactsService.create({
         name: formData.name,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { Button } from '../Button';
 import { FormGroup } from '../FormGroup';
 import { Input } from '../Input';
@@ -7,7 +7,10 @@ import { Form } from './style';
 import { useError } from '../../hooks/useError';
 import CategoriesService from '../../services/CategoriesService';
 
-export function ContactForm({ buttonLabel, onSubmit }) {
+export const ContactForm = forwardRef(function ContactForm(
+  { buttonLabel, onSubmit },
+  ref
+) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -31,6 +34,21 @@ export function ContactForm({ buttonLabel, onSubmit }) {
 
     loadCategories();
   }, []);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        setFields: (contact) => {
+          setEmail(contact.email);
+          setName(contact.name);
+          setCategoryId(contact.category_id);
+          setPhone(contact.phone);
+        },
+      };
+    },
+    []
+  );
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -104,7 +122,9 @@ export function ContactForm({ buttonLabel, onSubmit }) {
           disabled={loadCategories}
         >
           {categories.map((category) => (
-            <option value={category.id}>{category.name}</option>
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
           ))}
         </Select>
       </FormGroup>
@@ -114,4 +134,4 @@ export function ContactForm({ buttonLabel, onSubmit }) {
       </Button>
     </Form>
   );
-}
+});
