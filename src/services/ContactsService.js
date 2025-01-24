@@ -20,5 +20,5 @@ class ContactsService {
     return this.httpClient.get(`contacts/${id}`);
   }
 }
-
-export default new ContactsService();
+const contactService = new ContactsService();
+export default contactService;

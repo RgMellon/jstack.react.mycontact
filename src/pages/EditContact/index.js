@@ -27,7 +27,7 @@ export function EditContact() {
     }
 
     loadContactById();
-  }, []);
+  }, [id, navigate]);
 
   return (
     <>
