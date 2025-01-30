@@ -1,8 +1,7 @@
-import ContactsService from '../../services/ContactsService';
-import ApiError from '../../errors/ApiError';
 import { useEffect, useState } from 'react';
+import ApiError from '../../errors/ApiError';
 
-export function useHome() {
+export function useContactsModel(service) {
   const [contacts, setContacts] = useState([]);
   const [orderby, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +16,7 @@ export function useHome() {
 
     async function fetchData() {
       try {
-        const contactList = await ContactsService.loadContacts(orderby);
+        const contactList = await service.loadContacts(orderby);
 
         setContacts(contactList);
 
