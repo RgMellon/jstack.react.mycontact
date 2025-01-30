@@ -4,53 +4,46 @@ import {
   Header,
   InputSearchContainer,
   ListHeader,
-} from './styles';
+} from './page.style';
+
+import trash from '../../assets/images/icons/trash.svg';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
-import trash from '../../assets/images/icons/trash.svg';
-import { Link } from 'react-router-dom';
+
 import { Load } from '../../components/Load';
-import { useHome } from './useHome';
 
-export function Home() {
-  const {
-    isLoad,
-    handleChangeSearch,
-    filtredSearch,
-    contacts,
-    orderby,
-    handleTogleOrder,
-  } = useHome();
+import { Link } from 'react-router-dom';
 
+export function ContactView(props) {
   return (
     <Container>
-      <Load isLoad={isLoad} />
+      <Load isLoad={props.isLoad} />
       <InputSearchContainer>
         <input
           type="text"
           placeholder="Pesquisar contato"
-          onChange={handleChangeSearch}
+          onChange={props.handleChangeSearch}
         />
       </InputSearchContainer>
 
       <Header>
         <strong>
-          {filtredSearch.length}{' '}
-          {contacts.length === 0 ? `Contato` : `Contatos`}
+          {props.filtredSearch.length}{' '}
+          {props.contacts.length === 0 ? `Contato` : `Contatos`}
         </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      {filtredSearch.length > 0 && (
-        <ListHeader orderby={orderby}>
-          <button onClick={handleTogleOrder}>
+      {props.filtredSearch.length > 0 && (
+        <ListHeader orderby={props.orderby}>
+          <button onClick={props.handleTogleOrder}>
             <span>Nome</span>
             <img src={arrow} alt="flecha" width={10} />
           </button>
         </ListHeader>
       )}
 
-      {filtredSearch.map((contact) => (
+      {props.filtredSearch.map((contact) => (
         <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">
