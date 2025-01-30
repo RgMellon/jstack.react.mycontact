@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# 📱 Contacts App - Arquitetura MVVM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi desenvolvido utilizando React e implementa a arquitetura MVVM (Model-View-ViewModel) para melhor organização do código, separação de responsabilidades e escalabilidade.
 
-## Available Scripts
+## 📂 Estrutura do Projeto
 
-In the project directory, you can run:
+```
+src/
+│── app/
+│   ├── contacts/ # Módulo de contatos (Home)
+│   │   ├── page.js # ViewModel: Conecta a Model com a View
+│   │   ├── page.model.js # Model: Gerencia estado e regras de negócio
+│   │   ├── page.view.js # View: Apenas renderiza a interface
+│   │   ├── page.style.js # Estilos utilizando styled-components
+│
+│── services/ # Serviços externos (ex: API)
+│── components/ # Componentes reutilizáveis
+│── assets/ # Imagens e ícones
+│── errors/ # Tratamento de erros
+```
 
-### `npm start`
+## 🎯 Por que usamos MVVM?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A implementação da arquitetura MVVM trouxe diversos benefícios para o projeto:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ✅ 1. Melhor Separação de Responsabilidades (SoC - Separation of Concerns)
 
-### `npm test`
+- **Model (page.model.js)** → Gerencia o estado e regras de negócio.
+- **View (page.view.js)** → Apenas renderiza os dados recebidos.
+- **ViewModel (page.js)** → Faz a ponte entre a Model e a View.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🔥 **Benefício:** Código mais limpo, modular e fácil de manter.
 
-### `npm run build`
+### ✅ 2. Facilidade de Testes Unitários 🧪
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- A lógica da aplicação (**useContactsModel**) está separada da UI.
+- Podemos testar as regras de negócio sem precisar renderizar a interface gráfica.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🔥 **Benefício:** Menos bugs e maior cobertura de testes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ✅ 3. Maior Reutilização de Código 📦
 
-### `npm run eject`
+- O hook **useContactsModel** pode ser reutilizado em outras telas sem duplicação de código.
+- Qualquer página que precise de contatos pode importar e usar a mesma lógica.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+🔥 **Benefício:** Reuso eficiente e manutenção simplificada.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### ✅ 4. Código Mais Legível e Manutenível 🛠️
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Cada arquivo tem um propósito bem definido.
+- Bugs são mais fáceis de encontrar e corrigir.
+- Novos desenvolvedores entendem rapidamente a estrutura.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+🔥 **Benefício:** Código sustentável e fácil de evoluir.
 
-## Learn More
+### ✅ 5. Escalabilidade 📈
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- À medida que o projeto cresce, a separação de camadas evita componentes muito grandes e difíceis de gerenciar.
+- Facilita a adição de novas funcionalidades sem comprometer a organização do código.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🔥 **Benefício:** O projeto pode crescer sem perder qualidade.
 
-### Code Splitting
+## 🚀 Conclusão
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A adoção da arquitetura MVVM foi uma excelente escolha para tornar o código modular, reutilizável, testável e escalável.
+Com essa estrutura, garantimos que o projeto se mantenha organizado e sustentável a longo prazo.
 
-### Analyzing the Bundle Size
+## 📌 Instalação e Execução
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+# Clone o repositório
+git clone https://github.com/RgMellon/jstack.react.mycontact.git
 
-### Making a Progressive Web App
+# Acesse o diretório do projeto
+cd jstack.react.mycontact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Instale as dependências
+npm install
 
-### Advanced Configuration
+# Execute o projeto
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+💡 Sinta-se à vontade para contribuir e sugerir melhorias! 😃🚀
