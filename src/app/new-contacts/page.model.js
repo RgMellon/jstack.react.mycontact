@@ -1,13 +1,9 @@
-import { ContactForm } from '../../components/ContactForm';
-import { PageHeader } from '../../components/PageHeader';
-import ContactsService from '../../services/ContactsService';
 import { toast } from '../../utils/toast';
 
-export function NewContact() {
+export function useNewContactModel(service) {
   async function handleSubmit(formData) {
-
     try {
-      await ContactsService.create({
+      await service.create({
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
@@ -26,10 +22,7 @@ export function NewContact() {
     }
   }
 
-  return (
-    <>
-      <PageHeader title={'Novo contato'} />
-      <ContactForm buttonLabel={'Cadatrar'} onSubmit={handleSubmit} />
-    </>
-  );
+  return {
+    handleSubmit,
+  };
 }
