@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { EditContact } from './pages/EditContact';
-import { NewContact } from './pages/NewContact';
+
 import { Contacts } from './app/contacts/page';
+import { EditContact } from './app/edit-contacts/page';
+import { NewContact } from './app/new-contacts/page';
 
 export function AppRoutes() {
   return (
